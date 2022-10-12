@@ -8,8 +8,6 @@ public class Reptile extends Animal {
     private String bone;
     private String eggType;
 
-
-
     public Reptile() {
         super(0, 0, "Reptile", "A");
         this.skinType = "Dry Skin";
@@ -48,7 +46,6 @@ public class Reptile extends Animal {
     public void setEggType(String eggType) {
         this.eggType = eggType;
     }
-
 
     @Override
     public String toString() {

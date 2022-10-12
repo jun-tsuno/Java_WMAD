@@ -8,9 +8,11 @@ public class App {
         // Reptiles
         //Reptile reptile = new Reptile();
         //System.out.println(reptile);
+        System.out.println("\n");
         Crocodile crocodile = new Crocodile();
         System.out.println(crocodile);
         System.out.println(crocodile.info());
+        System.out.println("\n");
 
         // Fish
         // Fish fish = new Fish();
@@ -18,7 +20,7 @@ public class App {
         Eel eel = new Eel();
         System.out.println(eel);
         System.out.println(eel.info());
-
+        System.out.println("\n");
 
         // Birds
         // Birds birds = new Birds();
@@ -26,6 +28,6 @@ public class App {
         Eagle eagle = new Eagle();
         System.out.println(eagle);
         System.out.println(eagle.info());
-
+        System.out.println("\n");
     }
 }
