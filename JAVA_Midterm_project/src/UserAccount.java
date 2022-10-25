@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.ErrorManager;
 
@@ -5,7 +7,10 @@ public class UserAccount {
 
     private String userName;
     private String userPassword;
-
+    public String flightDestination = "not booked yet";
+    public String flightDeparture = "not booked yet";
+    public String flightDate = "NOT BOOKED YET";
+    public int flightNum;
 
     public UserAccount() {
 
@@ -24,38 +29,38 @@ public class UserAccount {
         return userPassword;
     }
 
-
-    class CurrentBooking {
+    public class CurrentBooking {
+        String departure;
         String destination;
         String date;
         int flightNum;
 
-        public CurrentBooking(String destination, String date, int flightNum) {
+        public CurrentBooking(String departure, String destination, String date, int flightNum) {
+            this.departure = departure;
             this.destination = destination;
             this.date = date;
             this.flightNum = flightNum;
         }
     }
 
+    public void Booking(String departure, String destination, int year, int month, int day, int flightNum) {
 
-    void Booking(String departure, String destination, int year, int month, int date) {
-        int flightNum = (int) Math.floor(Math.random() * 100);
-
-        System.out.println("[Your booking]");
-        System.out.println("=======================================================");
+        System.out.println("==================================================");
         System.out.println(
+            "<<<<Booking Completed >>>\n" +
             "Departure:" + departure.toUpperCase() + " ==> " + "Destination: " + destination.toUpperCase()
-            +"\nBooking Date: " +year + "/" +month + "/" +date
+            +"\nBooking Date: " +year + "-" +month + "-" +day
             +"\nFlight Number:" +flightNum
         );
-        System.out.println("=======================================================");
+        System.out.println("==================================================");
+
     }
 
     void errorMessage(String message) {
         System.out.println(message);
     }
 
-    void showMenu() {
+    public void showMenu() {
         char option;
         try (Scanner input = new Scanner(System.in)) {
             System.out.println("Welcome back, " + userName);
@@ -76,8 +81,15 @@ public class UserAccount {
 
                     case 'a':
                         System.out.println("-------------------------------");
-                        System.out.println("You have 3 reservations");
+                        System.out.println("Your next flight information");
                         System.out.println("-------------------------------");
+                        System.out.println("\n"+
+                            " Departure    : " +flightDeparture.toUpperCase()+"\n"+
+                            "Destination   : " +flightDestination.toUpperCase()+"\n"+
+                            "    Date      : " +flightDate+ "\n"+
+                            "Flight Number : " +flightNum+"\n"
+                        );
+                        break;
 
                     case 'b':
                         System.out.println("-------------------------------");
@@ -85,18 +97,17 @@ public class UserAccount {
                         System.out.println("-------------------------------");
 
                         Scanner userInput = new Scanner(System.in);
-                        String userDeparture = "hoge";
-                        String userDestination = "hogege";
+                        String userDeparture = null;
+                        String userDestination = null;
                         int userYear = 0000;
                         int userMonth = 00;
-                        int userDate = 00;
+                        int userDay = 00;
 
                         try{
                             System.out.println("Departure: Enter city");
                             userDeparture = userInput.nextLine();
                             System.out.println("Destination: Enter city");
-                            userDestination= userInput.nextLine();
-                            // BookingDestination(departure, destination);
+                            userDestination= userInput.next();
                         } catch(Exception e) {
                             errorMessage("Wrong Input! Only String please.");
                         }
@@ -106,18 +117,34 @@ public class UserAccount {
                             userYear = userInput.nextInt();
                             System.out.println("When do you depart? Month: ");
                             userMonth = userInput.nextInt();
-                            System.out.println("When do you depart? Date: ");
-                            userDate = userInput.nextInt();
-                            // BookingDate(year, month, date);
+                            System.out.println("When do you depart? Day: ");
+                            userDay = userInput.nextInt();
+
+                            if(userYear <= 0 || userYear < 2022 || userMonth <= 0 || userMonth > 12 || userDay <= 0 || userDay > 31) {
+                                System.out.println("Invalid Input! Check out your input!");
+                                break;
+                            } else if (userYear > 2027) {
+                                System.out.println("Sorry, you can only book for 5 years...");
+                                break;
+                            }
                         } catch(Exception e) {
                             errorMessage("Wrong Input! Only Integer please.");
                         }
 
-                        Booking(userDeparture, userDestination, userYear, userMonth, userDate);
+                        String date = userYear +"-"+ userMonth +"-"+ userDay;
+                        int flight = (int) Math.floor(Math.random() * 100);
+                        Booking(userDeparture, userDestination, userYear, userMonth, userDay, flight);
+
+                        flightDeparture = userDeparture;
+                        flightDestination = userDestination;
+                        flightDate = date;
+                        flightNum = flight;
+
+                        // Booking(userDeparture, userDestination, userYear, userMonth, userDay);
                         break;
 
                     default:
-                        System.out.println("Invalic option. Please try again.");
+                        System.out.println("Invalid option. Please try again.");
                         break;
                 }
 
