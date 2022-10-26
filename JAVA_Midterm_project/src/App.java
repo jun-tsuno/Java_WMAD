@@ -1,20 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-
 
 import java.io.IOException;
 
 public class App {
-
-    /*---
-     * username, password
-     * upcoming flight
-     * book flights(input: from/to, day  confirmation, cancel)
-     * cancel a flight
-     * exitAccount
-    ---*/
     public static void main(String[] args) throws Exception {
 
         try(Scanner input = new Scanner(System.in)) {
@@ -46,7 +34,6 @@ public class App {
             clrscr();
             userAccount.showMenu();
         }
-
     }
 
     public static void clrscr() {

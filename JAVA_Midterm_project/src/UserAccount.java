@@ -29,20 +29,6 @@ public class UserAccount {
         return userPassword;
     }
 
-    public class CurrentBooking {
-        String departure;
-        String destination;
-        String date;
-        int flightNum;
-
-        public CurrentBooking(String departure, String destination, String date, int flightNum) {
-            this.departure = departure;
-            this.destination = destination;
-            this.date = date;
-            this.flightNum = flightNum;
-        }
-    }
-
     public void Booking(String departure, String destination, int year, int month, int day, int flightNum) {
 
         System.out.println("==================================================");
@@ -53,7 +39,13 @@ public class UserAccount {
             +"\nFlight Number:" +flightNum
         );
         System.out.println("==================================================");
+    }
 
+    public void getCanceled() {
+        flightDestination = "NOT BOOKED YET";
+        flightDeparture = "NOT BOOKED YET";
+        flightDate = "NOT BOOKED YET";
+        flightNum = 0;
     }
 
     void errorMessage(String message) {
@@ -70,7 +62,8 @@ public class UserAccount {
                     "Select an option from the menu\n"+
                     "A: Upcoming Flights\n"+
                     "B: Booking\n"+
-                    "C: Exit\n"+
+                    "C: Cancel Booking\n"+
+                    "D: Exit\n"+
                     "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*="
                 );
                 option = input.next().charAt(0);
@@ -78,7 +71,6 @@ public class UserAccount {
                 App.clrscr();
 
                 switch(Character.toLowerCase(option)) {
-
                     case 'a':
                         System.out.println("-------------------------------");
                         System.out.println("Your next flight information");
@@ -104,20 +96,20 @@ public class UserAccount {
                         int userDay = 00;
 
                         try{
-                            System.out.println("Departure: Enter city");
+                            System.out.println("Departure: Enter city:  (ex) NewYork ");
                             userDeparture = userInput.nextLine();
-                            System.out.println("Destination: Enter city");
+                            System.out.println("Destination: Enter city:");
                             userDestination= userInput.next();
                         } catch(Exception e) {
                             errorMessage("Wrong Input! Only String please.");
                         }
 
                         try{
-                            System.out.println("When do you depart? Year: ");
+                            System.out.println("When do you depart? Year: (ex) 2022");
                             userYear = userInput.nextInt();
-                            System.out.println("When do you depart? Month: ");
+                            System.out.println("When do you depart? Month: (ex) 12");
                             userMonth = userInput.nextInt();
-                            System.out.println("When do you depart? Day: ");
+                            System.out.println("When do you depart? Day: (ex)31");
                             userDay = userInput.nextInt();
 
                             if(userYear <= 0 || userYear < 2022 || userMonth <= 0 || userMonth > 12 || userDay <= 0 || userDay > 31) {
@@ -143,17 +135,88 @@ public class UserAccount {
                         // Booking(userDeparture, userDestination, userYear, userMonth, userDay);
                         break;
 
+                    case 'c':
+                        char isCancel;
+                        Scanner inputCancel = new Scanner(System.in);
+                        System.out.println("-------------------------------");
+                        System.out.println("Cancel Booking");
+                        System.out.println("-------------------------------");
+                        System.out.println("\n<<<Your current Booking>>>\n"+ "\n"+
+                            " Departure    : " +flightDeparture.toUpperCase()+"\n"+
+                            "Destination   : " +flightDestination.toUpperCase()+"\n"+
+                            "    Date      : " +flightDate+ "\n"+
+                            "Flight Number : " +flightNum+"\n"+
+                            "\nCancel this flight ---> Enter [y]\nQuit ---> Enter [q]"
+                        );
+                        isCancel = inputCancel.next().charAt(0);
+                        switch(Character.toLowerCase(isCancel)) {
+                            case 'y':
+                                getCanceled();
+                                System.out.println("===================");
+                                System.out.println("Transaction Success");
+                                System.out.println("===================");
+                            case 'q':
+                                break;
+                            default:
+                                System.out.println("Caution! Invalid input. ***Your reservation is still valid***");
+                                break;
+                        }
+                        break;
+
+                    case 'd':
+                        break;
+
                     default:
                         System.out.println("Invalid option. Please try again.");
                         break;
                 }
 
-            } while (Character.toLowerCase(option) != 'c');
+            } while (Character.toLowerCase(option) != 'd');
 
-            System.out.println("Thank you for using us! See you next time!");
+            System.out.println("<<<Thank you for using us! See you next time!>>>");
             System.exit(0);
         };
-    };
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public String getFlightDestination() {
+        return flightDestination;
+    }
+
+    public void setFlightDestination(String flightDestination) {
+        this.flightDestination = flightDestination;
+    }
+
+    public String getFlightDeparture() {
+        return flightDeparture;
+    }
+
+    public void setFlightDeparture(String flightDeparture) {
+        this.flightDeparture = flightDeparture;
+    }
+
+    public String getFlightDate() {
+        return flightDate;
+    }
+
+    public void setFlightDate(String flightDate) {
+        this.flightDate = flightDate;
+    }
+
+    public int getFlightNum() {
+        return flightNum;
+    }
+
+    public void setFlightNum(int flightNum) {
+        this.flightNum = flightNum;
+    }
 }
 
 
